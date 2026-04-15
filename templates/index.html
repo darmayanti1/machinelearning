@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Prediksi Bike Sharing</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(to right, #e3f2fd, #ffffff);
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 50px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0px 5px 20px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+        }
+
+        small {
+            color: #666;
+            font-size: 12px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #45a049;
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background: #e8f5e9;
+            border-left: 5px solid green;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 18px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>🚴 Prediksi Penyewaan Sepeda</h1>
+
+    <form action="/predict" method="post">
+
+        <div class="form-group">
+            <label>Datetime</label>
+            <input type="datetime-local" name="datetime" required>
+            <small>Contoh: 2024-01-01 13:00</small>
+        </div>
+
+        <div class="form-group">
+            <label>Season</label>
+            <select name="season">
+                <option value="1">Semi</option>
+                <option value="2">Panas</option>
+                <option value="3">Gugur</option>
+                <option value="4">Dingin</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Holiday</label>
+            <select name="holiday">
+                <option value="0">Bukan Libur</option>
+                <option value="1">Hari Libur</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Working Day</label>
+            <select name="workingday">
+                <option value="1">Hari Kerja</option>
+                <option value="0">Weekend / Libur</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Weather</label>
+            <select name="weather">
+                <option value="1">Cerah</option>
+                <option value="2">Berawan / Kabut</option>
+                <option value="3">Hujan ringan</option>
+                <option value="4">Hujan deras</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Temperature (°C)</label>
+            <input type="number" step="any" name="temp" required>
+        </div>
+
+        <div class="form-group">
+            <label>Feels Like Temp (°C)</label>
+            <input type="number" step="any" name="atemp" required>
+        </div>
+
+        <div class="form-group">
+            <label>Humidity (%)</label>
+            <input type="number" step="any" name="humidity" required>
+        </div>
+
+        <div class="form-group">
+            <label>Wind Speed</label>
+            <input type="number" step="any" name="windspeed" required>
+        </div>
+
+        <button type="submit">Prediksi</button>
+    </form>
+
+    {% if prediction %}
+        <div class="result">
+            Hasil Prediksi: <b>{{ prediction }}</b>
+        </div>
+    {% endif %}
+</div>
+
+</body>
+</html>
